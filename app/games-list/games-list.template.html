@@ -1,0 +1,6 @@
+<input ng-model='query'>
+<ul>
+    <li ng-repeat='game in $ctrl.games.games | startsWithLetter:query'>
+        {{game.Name.en}}
+    </li>
+</ul>
