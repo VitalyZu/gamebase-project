@@ -1,6 +1,11 @@
 <input ng-model='query'>
+<input ng-model='page'>
 <ul>
-    <li ng-repeat='game in $ctrl.games.games | startsWithLetter:query'>
+    <li ng-repeat='game in $ctrl.games | orderBy:"Name.en" | search:query:page '>
         {{game.Name.en}}
+        <img ng-src={{game.ImageFullPath}} alt="{{game.Name.en}}">
+        <button>Follow</button>
+        <p>{{game.Description.en}}</p>
     </li>
+    <button ng-repeat='button in _.range((($ctrl.games | filter:query)).length/40)'>{{button}}</button>
 </ul>
