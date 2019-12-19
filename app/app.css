@@ -9,6 +9,10 @@ img {
   width: 50px
 }
 
-li p {
-  
+ol p {
+  height: 20px
+}
+
+.categories {
+  display: block;
 }

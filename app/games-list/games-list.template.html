@@ -1,11 +1,22 @@
 <input ng-model='query'>
-<input ng-model='page'>
-<ul>
-    <li ng-repeat='game in $ctrl.games | orderBy:"Name.en" | search:query:page '>
+<button ng-click='$ctrl.changeGamesPerPage($event)'>50</button>
+<button ng-click='$ctrl.changeGamesPerPage($event)'>100</button>
+<button ng-click='$ctrl.changeOrder($event)' id='sbn'>Sort by Name</button>
+<button ng-click='$ctrl.changeOrder($event)' id='sbi'>Sort by ID</button>
+<button ng-click='$ctrl.changeReverse($event)' id='rvsbtn'>Reverse</button>
+<div class='categories'>
+    <button>All games</button>
+    <button ng-repeat='button in $ctrl.categories'>{{button.Trans.en}}</button>
+</div>
+<ol>
+    <li
+        ng-repeat='game in $ctrl.games | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
         {{game.Name.en}}
+        **{{game.ID}}**
         <img ng-src={{game.ImageFullPath}} alt="{{game.Name.en}}">
         <button>Follow</button>
         <p>{{game.Description.en}}</p>
     </li>
-    <button ng-repeat='button in _.range((($ctrl.games | filter:query)).length/40)'>{{button}}</button>
-</ul>
+</ol>
+<button ng-repeat='button in _.range((($ctrl.games | searchForButtons:query).length)/$ctrl.gamesOnPage)'
+    ng-click='$ctrl.changePage($event)'>{{button+1}}</button>
