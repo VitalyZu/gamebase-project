@@ -1,13 +1,41 @@
 <input ng-model='query'>
-<button ng-click='$ctrl.changeGamesPerPage($event)'>50</button>
-<button ng-click='$ctrl.changeGamesPerPage($event)'>100</button>
-<button ng-click='$ctrl.changeOrder($event)' id='sbn'>Sort by Name</button>
-<button ng-click='$ctrl.changeOrder($event)' id='sbi'>Sort by ID</button>
-<button ng-click='$ctrl.changeReverse($event)' id='rvsbtn'>Reverse</button>
-<div class='categories'>
-    <button>All games</button>
-    <button ng-repeat='button in $ctrl.categories'>{{button.Trans.en}}</button>
+
+<div class='games-on-page' ng-init="selectedGPP = '50'">
+    <button 
+        ng-class="{'active':selectedGPP === '50'}"
+        ng-click='$ctrl.changeGamesPerPage($event);selectedGPP = "50"'>50</button>
+    <button 
+        ng-class="{'active':selectedGPP === '100'}"
+        ng-click='$ctrl.changeGamesPerPage($event);selectedGPP = "100"'>100</button>
 </div>
+
+<div class='sort' ng-init="selectedSort = 'name'">
+    <button 
+        ng-class="{'active':selectedSort === 'name'}" 
+        ng-click='$ctrl.changeOrder($event);selectedSort = "name"'
+        id='sbn'>Sort by Name</button>
+    <button 
+        ng-class="{'active':selectedSort === 'id'}" 
+        ng-click='$ctrl.changeOrder($event);selectedSort = "id"'
+        id='sbi'>Sort by ID</button>
+</div>
+
+<button 
+    ng-init='rev = $ctrl.reverse' 
+    ng-class="{'active' : rev === '-'}" 
+    ng-click='$ctrl.changeReverse($event);rev=$ctrl.reverse' 
+    id='rvsbtn'>Reverse</button>
+
+<div ng-init='cat={name:"all"}' class='categories'>
+    <button 
+        ng-class="{'active' : cat.name === 'all'}" 
+        ng-click='cat.name="all"'>All</button>
+    <button 
+        ng-repeat='button in $ctrl.categories'
+        ng-class="{'active': cat.name == $index}"
+        ng-click='cat.name=$index'>{{button.Trans.en}}</button>
+</div
+>
 <ol>
     <li
         ng-repeat='game in $ctrl.games | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>

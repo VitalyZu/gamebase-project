@@ -1,4 +1,6 @@
-/* app css stylesheet */
+body {
+  margin: 5px;
+}
 
 li {
   border: solid 1px black;
@@ -15,4 +17,12 @@ ol p {
 
 .categories {
   display: block;
+}
+
+.active {
+  border: solid 2px green
+}
+
+.games-on-page, .sort {
+  margin: 10px;
 }
