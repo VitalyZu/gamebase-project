@@ -37,12 +37,20 @@
 </div
 >
 <ol>
+    <li class='favorite-game'
+        ng-repeat='game in $ctrl.locStor |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
+        {{game.Name.en}}
+        <<{{game.ID}}>>
+        <img ng-src={{game.ImageFullPath}} alt="{{game.Name.en}}">
+        <button ng-click='$ctrl.addFavorite(game.ID,game)'>Unfollow</button>
+        <p>{{game.Description.en}}</p>
+    </li>
     <li
-        ng-repeat='game in $ctrl.games |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
+        ng-repeat='game in _.difference($ctrl.games,$ctrl.locStor) |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
         {{game.Name.en}}
         **{{game.ID}}**
         <img ng-src={{game.ImageFullPath}} alt="{{game.Name.en}}">
-        <button>Follow</button>
+        <button ng-click='$ctrl.addFavorite(game.ID,game)'>Follow</button>
         <p>{{game.Description.en}}</p>
     </li>
 </ol>

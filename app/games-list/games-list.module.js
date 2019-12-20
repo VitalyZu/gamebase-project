@@ -1,1 +1,1 @@
-angular.module('gamesList',[])
+angular.module('gamesList', [])

@@ -1,7 +1,7 @@
 angular.module('gamesList')
   .component('gamesList', {
     templateUrl: 'games-list/games-list.template.html',
-    controller: ['$scope', '$http', function gamesList($scope, $http) {
+    controller: ['$scope', '$http', 'lsService', function gamesList($scope, $http, lsService) {
       this.gamesOnPage = 50
       this.page = 1
       console.log(this) //gamesList {}
@@ -10,6 +10,7 @@ angular.module('gamesList')
       this.reverse = ""
       this.sortBy = "Name.en"
       this.category = 0
+      this.locStor = lsService
       console.log($scope) //Scope {$id: 2, ....,  _: ƒ ()
       $http.get('http://127.0.0.1:8887/data.json')
         .then(response => {
@@ -29,10 +30,13 @@ angular.module('gamesList')
       }
       this.changeReverse = function (e) {
         (!this.reverse) ? this.reverse = '-' : this.reverse = ''
-        console.log(this.reverse)
       }
       this.changeCategory = function (id) {
         this.category = +id
+      }
+      this.addFavorite = function (id, game) {
+        _.includes(this.locStor, game) ? _.remove(this.locStor, function (v) { return _.isEqual(v, game) }) : this.locStor.push(game)
+        localStorage.setItem('favorite', JSON.stringify(this.locStor))
       }
     }]
   })

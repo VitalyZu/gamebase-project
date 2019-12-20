@@ -26,3 +26,7 @@ ol p {
 .games-on-page, .sort {
   margin: 10px;
 }
+
+.favorite-game {
+  border: solid 2px green
+}
