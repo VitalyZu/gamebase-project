@@ -29,16 +29,16 @@
 <div ng-init='cat={name:"all"}' class='categories'>
     <button 
         ng-class="{'active' : cat.name === 'all'}" 
-        ng-click='cat.name="all"'>All</button>
+        ng-click='$ctrl.changeCategory(0);cat.name="all"'>All</button>
     <button 
         ng-repeat='button in $ctrl.categories'
-        ng-class="{'active': cat.name == $index}"
-        ng-click='cat.name=$index'>{{button.Trans.en}}</button>
+        ng-class="{'active': cat.name === $index}"
+        ng-click='$ctrl.changeCategory(button.ID);cat.name = $index'>{{button.Trans.en}}</button>
 </div
 >
 <ol>
     <li
-        ng-repeat='game in $ctrl.games | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
+        ng-repeat='game in $ctrl.games |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
         {{game.Name.en}}
         **{{game.ID}}**
         <img ng-src={{game.ImageFullPath}} alt="{{game.Name.en}}">
@@ -46,5 +46,10 @@
         <p>{{game.Description.en}}</p>
     </li>
 </ol>
-<button ng-repeat='button in _.range((($ctrl.games | searchForButtons:query).length)/$ctrl.gamesOnPage)'
-    ng-click='$ctrl.changePage($event)'>{{button+1}}</button>
+<div ng-init = 'pages={name:1}'>
+    <button
+        ng-class="{'active': pages.name === +$index+1}" 
+        ng-repeat='button in _.range((($ctrl.games | category:$ctrl.category | searchForButtons:query).length)/$ctrl.gamesOnPage)'
+        ng-click='$ctrl.changePage($event);pages.name = $index+1'>{{$index+1}}</button
+        >
+</div>

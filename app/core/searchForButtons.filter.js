@@ -1,6 +1,6 @@
 angular.module('core')
-    .filter('search', function () {
-        return function (items, letter, page, gpp) {
+    .filter('searchForButtons', function () {
+        return function (items, letter, ) {
             var filtered = []
             var letterMatch = new RegExp(letter, 'i')
             for (var i = 0; i < items.length; i++) {
@@ -9,7 +9,6 @@ angular.module('core')
                     filtered.push(item);
                 }
             }
-            return _.chunk(filtered, gpp)[+page - 1]
-
+            return filtered
         }
     })

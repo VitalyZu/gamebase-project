@@ -9,6 +9,7 @@ angular.module('gamesList')
       $scope._ = _
       this.reverse = ""
       this.sortBy = "Name.en"
+      this.category = 0
       console.log($scope) //Scope {$id: 2, ....,  _: ƒ ()
       $http.get('http://127.0.0.1:8887/data.json')
         .then(response => {
@@ -29,6 +30,9 @@ angular.module('gamesList')
       this.changeReverse = function (e) {
         (!this.reverse) ? this.reverse = '-' : this.reverse = ''
         console.log(this.reverse)
+      }
+      this.changeCategory = function (id) {
+        this.category = +id
       }
     }]
   })
