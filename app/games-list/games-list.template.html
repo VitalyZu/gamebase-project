@@ -34,30 +34,36 @@
         ng-repeat='button in $ctrl.categories'
         ng-class="{'active': cat.name === $index}"
         ng-click='$ctrl.changeCategory(button.ID);cat.name = $index'>{{button.Trans.en}}</button>
+    <button 
+        ng-class="{'active': cat.name === 'favgames'}"
+        ng-click='$ctrl.changeCategory(9999);cat.name = "favgames"'>Favorite games</button>
 </div
 >
 <ol>
     <li class='favorite-game'
         ng-repeat='game in $ctrl.locStor |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
         {{game.Name.en}}
-        <<{{game.ID}}>>
+        %%{{game.ID}}%%
         <img ng-src={{game.ImageFullPath}} alt="{{game.Name.en}}">
         <button ng-click='$ctrl.addFavorite(game.ID,game)'>Unfollow</button>
         <p>{{game.Description.en}}</p>
     </li>
+    <div ng-hide="$ctrl.showMainList">
     <li
-        ng-repeat='game in _.difference($ctrl.games,$ctrl.locStor) |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
+        ng-repeat='game in _.differenceBy($ctrl.games,$ctrl.locStor,"ID") |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'
+        >
         {{game.Name.en}}
         **{{game.ID}}**
         <img ng-src={{game.ImageFullPath}} alt="{{game.Name.en}}">
         <button ng-click='$ctrl.addFavorite(game.ID,game)'>Follow</button>
         <p>{{game.Description.en}}</p>
     </li>
+</div>
 </ol>
-<div ng-init = 'pages={name:1}'>
+<div ng-init='pages={name:$ctrl.page}'>
     <button
-        ng-class="{'active': pages.name === +$index+1}" 
+        ng-class="{'active': $ctrl.page === $index+1}" 
         ng-repeat='button in _.range((($ctrl.games | category:$ctrl.category | searchForButtons:query).length)/$ctrl.gamesOnPage)'
-        ng-click='$ctrl.changePage($event);pages.name = $index+1'>{{$index+1}}</button
+        ng-click='$ctrl.changePage(+$index);pages.name = $ctrl.page'>{{$index+1}}</button
         >
 </div>

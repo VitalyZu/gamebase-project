@@ -11,6 +11,7 @@ angular.module('gamesList')
       this.sortBy = "Name.en"
       this.category = 0
       this.locStor = lsService
+      this.showMainList = false
       console.log($scope) //Scope {$id: 2, ....,  _: ƒ ()
       $http.get('http://127.0.0.1:8887/data.json')
         .then(response => {
@@ -23,7 +24,7 @@ angular.module('gamesList')
         this.page = 1
       }
       this.changePage = function (e) {
-        this.page = e.target.innerHTML
+        this.page = e + 1
       }
       this.changeOrder = function (e) {
         (e.target.id === 'sbn') ? this.sortBy = 'Name.en' : this.sortBy = 'ID'
@@ -32,7 +33,9 @@ angular.module('gamesList')
         (!this.reverse) ? this.reverse = '-' : this.reverse = ''
       }
       this.changeCategory = function (id) {
+        this.page = 1
         this.category = +id
+        if (this.category === 9999) { this.showMainList = true } else { this.showMainList = false }
       }
       this.addFavorite = function (id, game) {
         _.includes(this.locStor, game) ? _.remove(this.locStor, function (v) { return _.isEqual(v, game) }) : this.locStor.push(game)
