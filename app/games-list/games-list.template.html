@@ -1,4 +1,7 @@
-<input ng-model='query'>
+<div ng-hide='$ctrl.favAlert' class='fav-alert' ng-click='$ctrl.hideFavAlert()'>
+    <p>Only 5 games can be added to favorites</p>
+    <p>click to continue</p>
+</div>
 
 <div class='games-on-page' ng-init="selectedGPP = '50'">
     <button 
@@ -36,9 +39,9 @@
         ng-click='$ctrl.changeCategory(button.ID);cat.name = $index'>{{button.Trans.en}}</button>
     <button 
         ng-class="{'active': cat.name === 'favgames'}"
-        ng-click='$ctrl.changeCategory(9999);cat.name = "favgames"'>Favorite games</button>
-</div
->
+        ng-click='$ctrl.changeCategory(-1);cat.name = "favgames"'>Favorite games</button>
+</div>
+<input ng-model='query'>
 <ol>
     <li class='favorite-game'
         ng-repeat='game in $ctrl.locStor |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
@@ -60,7 +63,9 @@
     </li>
 </div>
 </ol>
-<div ng-init='pages={name:$ctrl.page}'>
+<div ng-hide='$ctrl.favList'>Nothing...</div>
+<div ng-init='pages={name:$ctrl.page}'
+    ng-hide="$ctrl.showMainList">
     <button
         ng-class="{'active': $ctrl.page === $index+1}" 
         ng-repeat='button in _.range((($ctrl.games | category:$ctrl.category | searchForButtons:query).length)/$ctrl.gamesOnPage)'

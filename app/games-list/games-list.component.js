@@ -12,6 +12,8 @@ angular.module('gamesList')
       this.category = 0
       this.locStor = lsService
       this.showMainList = false
+      this.favAlert = true
+      this.favList = true
       console.log($scope) //Scope {$id: 2, ....,  _: ƒ ()
       $http.get('http://127.0.0.1:8887/data.json')
         .then(response => {
@@ -35,11 +37,22 @@ angular.module('gamesList')
       this.changeCategory = function (id) {
         this.page = 1
         this.category = +id
-        if (this.category === 9999) { this.showMainList = true } else { this.showMainList = false }
+        if (this.category === -1) {
+          this.locStor.length > 0 ? this.favList = true : this.favList = false
+          this.showMainList = true
+        }
+        else { 
+          this.favList = true
+          this.showMainList = false }
       }
       this.addFavorite = function (id, game) {
-        _.includes(this.locStor, game) ? _.remove(this.locStor, function (v) { return _.isEqual(v, game) }) : this.locStor.push(game)
+
+        if (_.includes(this.locStor, game)) { _.remove(this.locStor, function (v) { return _.isEqual(v, game) }) }
+        else if (this.locStor.length < 5) { this.locStor.push(game) } else { this.favAlert = false }
         localStorage.setItem('favorite', JSON.stringify(this.locStor))
+      }
+      this.hideFavAlert = function () {
+        this.favAlert = true
       }
     }]
   })
