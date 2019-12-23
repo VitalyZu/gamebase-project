@@ -44,7 +44,7 @@
 <input ng-model='query'>
 <ol>
     <li class='favorite-game'
-        ng-repeat='game in $ctrl.locStor |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'>
+        ng-repeat='game in $ctrl.locStor |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage:false'>
         {{game.Name.en}}
         %%{{game.ID}}%%
         <img ng-src={{game.ImageFullPath}} alt="{{game.Name.en}}">
@@ -53,7 +53,7 @@
     </li>
     <div ng-hide="$ctrl.showMainList">
     <li
-        ng-repeat='game in _.differenceBy($ctrl.games,$ctrl.locStor,"ID") |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage'
+        ng-repeat='game in _.differenceBy($ctrl.games,$ctrl.locStor,"ID") |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage:true'
         >
         {{game.Name.en}}
         **{{game.ID}}**

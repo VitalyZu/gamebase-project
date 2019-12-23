@@ -41,9 +41,10 @@ angular.module('gamesList')
           this.locStor.length > 0 ? this.favList = true : this.favList = false
           this.showMainList = true
         }
-        else { 
+        else {
           this.favList = true
-          this.showMainList = false }
+          this.showMainList = false
+        }
       }
       this.addFavorite = function (id, game) {
 
