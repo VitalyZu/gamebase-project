@@ -44,7 +44,7 @@
         ng-class="{'active': cat.name === 'merch'}"
         ng-click='$ctrl.viewMerchList();cat.name = "merch"'>Merchant</button>
 </div>
-<input ng-model='query'>
+<input ng-model='query' {{console.log(query)}}>
 <ol>
     <li class='favorite-game'
         ng-repeat='game in $ctrl.locStor |category:$ctrl.category | orderBy:$ctrl.reverse+$ctrl.sortBy | search:query:$ctrl.page:$ctrl.gamesOnPage:false'>
@@ -73,16 +73,15 @@
     ng-hide="$ctrl.hideMainList">
     <button
         ng-class="{'active': $ctrl.page === $index+1}" 
-        ng-repeat='button in _.range((($ctrl.games | category:$ctrl.category | searchForButtons:query).length)/$ctrl.gamesOnPage)'
-        ng-click='$ctrl.changePage(+$index);pages.name = $ctrl.page'>{{$index+1}}</button
-        >
+        ng-repeat='button in _.range((($ctrl.games | category:$ctrl.category | searchName:query).length)/$ctrl.gamesOnPage)'
+        ng-click='$ctrl.changePage(+$index);pages.name = $ctrl.page'>{{$index+1}}</button>
 </div>
 
-<div ng-hide='$ctrl.hideMerch'>
-    <ul>
-        <li ng-repeat='merch in $ctrl.merchants | filter:query'>
-            {{merch.ID}}
-            {{merch.Name}}
-        </li>
-    </ul>
+<div ng-hide='$ctrl.hideMerch' ng-init='name = {id:"941"}'>
+        <button ng-repeat='merch in $ctrl.merchants' 
+                ng-click='name.id=merch.ID'
+                ng-class="{'active': name.id === merch.ID}">{{merch.ID}}</button>
+        <ol>
+            <li ng-repeat="game in $ctrl.games | filter:{ MerchantID:name.id }  | searchName:query ">{{game.Name.en}}</li>
+        </ol>
 </div>

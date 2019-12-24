@@ -15,6 +15,7 @@ angular.module('gamesList')
       this.hideFavLimitAlert = true
       this.hideEmptyMess = true
       this.hideMerch = true
+      this.inputDefaultValue = '12'
       console.log($scope) //Scope {$id: 2, ....,  _: ƒ ()
       $http.get('http://127.0.0.1:8887/data.json')
         .then(response => {
@@ -39,6 +40,7 @@ angular.module('gamesList')
       this.changeCategory = function (id) {
         this.hideMerch = true
         this.page = 1
+        this.category === -2 ? $scope.query = '' : ''
         this.category = +id
         if (this.category === -1) { // === Favorite Games
           this.locStor.length > 0 ? this.hideEmptyMess = true : this.hideEmptyMess = false
@@ -59,6 +61,7 @@ angular.module('gamesList')
         this.hideFavLimitAlert = true
       }
       this.viewMerchList = function () {
+        $scope.query = ''
         this.category = -2
         this.hideMerch = false
         this.hideEmptyMess = true

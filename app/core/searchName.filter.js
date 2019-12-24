@@ -1,6 +1,6 @@
 angular.module('core')
-    .filter('searchForButtons', function () {
-        return function (items, letter, ) {
+    .filter('searchName', function () {
+        return function (items, letter) {
             var filtered = []
             var letterMatch = new RegExp(letter, 'i')
             for (var i = 0; i < items.length; i++) {
