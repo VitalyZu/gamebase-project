@@ -1,8 +1,11 @@
+* {box-sizing: border-box;}
+
 body {
   margin: 5px;
+  font-family: 'Muli', sans-serif;
 }
 
-li {
+.game-card {
   border: solid 1px black;
   padding: 5px;
 }
@@ -20,18 +23,17 @@ ol p {
 }
 
 .active {
-  border: solid 2px green
+  border: solid 2px green;
+  color: white;
+  background-color: green;
 }
 
 .games-on-page, .sort {
   margin: 10px;
 }
 
-.favorite-game {
-  border: solid 2px green
-}
-
 .fav-alert {
+  color: green;
   position: fixed;
   top: 0%;
   left: 0%;
@@ -43,18 +45,146 @@ ol p {
   align-items: center;
   font-size: 24px;
   flex-direction: column;
+  z-index: 999;
 }
 
+.form-group {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
 input {
   margin: 10px 0px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  display: inline-block;
   width: 80%;
   border-radius: 5px;
   border: solid 1px gray;
+  text-align: center;
+  border-color: green;
+}
+.search {
+  position: relative;
+  color: green;
+  top: 15px;
+  left: 20px;
 }
 
+
 button {
-  margin: 2px;
+  text-decoration: none;
+  color: green;
+  font-size: 12px;
+  line-height: 20px;
+  transition: .4s ease-in-out;
+  padding: 4px;
+  margin: 2px
 }
+
+
+.main-list {
+  border-top: 1px solid black;
+  margin-top: 10px;
+  padding: 25px 25px;
+}
+
+.merch-list {
+  padding: 10px;
+}
+
+.games-list-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
+  
+}
+
+.game-wrap {
+  width: 200px;
+  margin: 0 auto;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 14px; 
+}
+.game-item {
+  position: relative;
+}
+.game-wrap img {
+  display: block;
+  width: 100%;
+}
+.game-buttons {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .8);
+  opacity: 0;
+  transition: .4s ease-in-out;
+}
+.button { 
+  text-decoration: none;
+  color: green;
+  font-size: 12px;
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  border: solid 2px green;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: .4s ease-in-out;
+}
+.button:before {
+  content: "\f004";
+  font-family: FontAwesome;
+  margin-right: 10px;
+}
+.game-item:hover .game-buttons {
+  opacity: 1;
+}
+.game-item:hover .button {
+  transform: translate(-50%, -50%) scale(1);
+}
+.button:hover {
+  background: green;
+  color: white;
+}
+.game-title a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 15px 0 5px;
+  padding-bottom: 7px;
+  display: block;
+  position: relative;
+  transition: .3s ease-in-out;
+}
+.game-title a:after{    
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 2px;
+  left: 50%;
+  margin-left: -20px;
+  background-color: black;
+  bottom: 0;
+  transition: .3s ease-in-out;
+}
+.game-title a:hover {
+  color: green;
+}
+
+.favorite-game img {
+  border: solid 4px green
+}
+
+.favorite-game .button:before {
+  content: "\f00d";
+  font-family: FontAwesome;
+  margin-right: 10px;
+}
+
+
