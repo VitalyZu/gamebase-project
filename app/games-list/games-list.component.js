@@ -23,6 +23,10 @@ angular.module('gamesList')
           this.games = this.data.games
           this.categories = this.data.categories
           this.merchants = _.values(this.data.merchants)
+          this.categoryName = {}
+          _.forEach(this.categories, function (v) {
+            self.categoryName[v.ID] = v.Trans.en
+          })
         })
       this.changeGamesPerPage = function (e) {
         this.gamesOnPage = e.target.innerHTML
@@ -65,6 +69,15 @@ angular.module('gamesList')
         this.category = -2
         this.hideMerch = false
         this.hideEmptyMess = true
+      }
+      this.viewCategoryName = function (a) {
+        that = this
+        let str = []
+        _.forEach(a, function (v) {
+          if (that.categoryName[v] === undefined) { str.push(`id${v}`) } else { str.push(that.categoryName[v]) }
+
+        })
+        return str.join(', ')
       }
     }]
   })

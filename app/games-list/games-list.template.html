@@ -3,35 +3,44 @@
     <p>click to continue</p>
 </div>
 
-<div class='games-on-page' ng-init="selectedGPP = '50'">
-    <button ng-class="{'active':selectedGPP === '50'}"
-        ng-click='$ctrl.changeGamesPerPage($event);selectedGPP = "50"'>50</button>
-    <button ng-class="{'active':selectedGPP === '100'}"
-        ng-click='$ctrl.changeGamesPerPage($event);selectedGPP = "100"'>100</button>
-</div>
 
-<div class='sort' ng-init="selectedSort = 'name'">
-    <button ng-class="{'active':selectedSort === 'name'}" ng-click='$ctrl.changeOrder($event);selectedSort = "name"'
-        id='sbn'>Sort by Name</button>
-    <button ng-class="{'active':selectedSort === 'id'}" ng-click='$ctrl.changeOrder($event);selectedSort = "id"'
-        id='sbi'>Sort by ID</button>
-</div>
+<div class='fixed'>
+    <div class='sort' ng-init="selectedSort = 'name'">
+        <button ng-class="{'active':selectedSort === 'name'}" ng-click='$ctrl.changeOrder($event);selectedSort = "name"'
+            id='sbn'><i class="fas fa-sort-alpha-up"></i> Sort by Name</button>
+        <button ng-class="{'active':selectedSort === 'id'}" ng-click='$ctrl.changeOrder($event);selectedSort = "id"'
+            id='sbi'><i class="fas fa-sort-numeric-up"></i> Sort by ID</button>
+        <button ng-init='rev = $ctrl.reverse' ng-class="{'active' : rev === '-'}"
+            ng-click='$ctrl.changeReverse($event);rev=$ctrl.reverse' id='rvsbtn'><i class="fas fa-sort"></i></button>
+    </div>
 
-<button ng-init='rev = $ctrl.reverse' ng-class="{'active' : rev === '-'}"
-    ng-click='$ctrl.changeReverse($event);rev=$ctrl.reverse' id='rvsbtn'>Reverse</button>
 
-<div ng-init='cat={name:"all"}' class='categories'>
-    <button ng-class="{'active' : cat.name === 'all'}" ng-click='$ctrl.changeCategory(0);cat.name="all"'>All</button>
-    <button ng-repeat='button in $ctrl.categories' ng-class="{'active': cat.name === $index}"
-        ng-click='$ctrl.changeCategory(button.ID);cat.name = $index'>{{button.Trans.en}}</button>
-    <button ng-class="{'active': cat.name === 'favgames'}"
-        ng-click='$ctrl.changeCategory(-1);cat.name = "favgames"'>Favorite games</button>
-    <button ng-class="{'active': cat.name === 'merch'}"
-        ng-click='$ctrl.viewMerchList();cat.name = "merch"'>Merchant</button>
-</div>
 
-<div class="form-group">
-    <i class="fas fa-search search"></i><input ng-model='query' type="text" placeholder="search...">
+    <div ng-init='cat={name:"all"}' class='categories'>
+        <button ng-class="{'active' : cat.name === 'all'}" ng-click='$ctrl.changeCategory(0);cat.name="all"'><i
+                class="fas fa-star-of-life"></i> All</button>
+        <button ng-repeat='button in $ctrl.categories' ng-class="{'active': cat.name === $index}"
+            ng-click='$ctrl.changeCategory(button.ID);cat.name = $index'>{{button.Trans.en}}</button>
+        <button ng-class="{'active': cat.name === 'favgames'}"
+            ng-click='$ctrl.changeCategory(-1);cat.name = "favgames"'><i class="fas fa-heart"></i> Favorite
+            games</button>
+        <button ng-class="{'active': cat.name === 'merch'}" ng-click='$ctrl.viewMerchList();cat.name = "merch"'><i
+                class="fas fa-cog"></i> Merchant</button>
+    </div>
+
+    <div class="form-group">
+        <i class="fas fa-search search"></i><input ng-model='query' type="text" placeholder="search...">
+        <div class='games-on-page' ng-init="selectedGPP = '50'">
+            <button ng-class="{'active':selectedGPP === '50'}"
+                ng-click='$ctrl.changeGamesPerPage($event);selectedGPP = "50"'>50</button>
+            <button ng-class="{'active':selectedGPP === '100'}"
+                ng-click='$ctrl.changeGamesPerPage($event);selectedGPP = "100"'>100</button>
+        </div>
+    </div>
+    <div ng-hide="$ctrl.hideMainList" class='stats'>
+        <span class='stat-fav'>You have {{ $ctrl.locStor.length}} favorite games.</span>
+        <span class='stat-cat'> In category {{($ctrl.games | category:$ctrl.category).length}} games</span>
+    </div>
 </div>
 <div class='games-list-wrap'>
     <div class='game-wrap favorite-game'
@@ -60,18 +69,54 @@
     </div>
 
 </div>
-<div ng-hide='$ctrl.hideEmptyMess'>Nothing...</div>
 
-<div ng-init='pages={name:$ctrl.page}' ng-hide="$ctrl.hideMainList">
+<div ng-hide='$ctrl.hideEmptyMess' class='nothing'>Nothing...</div>
+
+<div ng-init='pages={name:$ctrl.page}' ng-hide="$ctrl.hideMainList" class='page-btn'>
     <button ng-class="{'active': $ctrl.page === $index+1}"
         ng-repeat='button in _.range((($ctrl.games | category:$ctrl.category | searchName:query).length)/$ctrl.gamesOnPage)'
         ng-click='$ctrl.changePage(+$index);pages.name = $ctrl.page'>{{$index+1}}</button>
 </div>
 
 <div ng-hide='$ctrl.hideMerch' ng-init='name = {id:"941"}' class='merch-list'>
-    <button ng-repeat='merch in $ctrl.merchants' ng-click='name.id=merch.ID'
-        ng-class="{'active': name.id === merch.ID}">{{merch.ID}}</button>
-    <ol>
-        <li ng-repeat="game in $ctrl.games | filter:{ MerchantID:name.id }  | searchName:query ">{{game.Name.en}}</li>
-    </ol>
+    <div>
+        <button ng-repeat='merch in $ctrl.merchants' ng-click='name.id=merch.ID'
+            ng-class="{'active': name.id === merch.ID}">{{merch.ID}}</button>
+    </div>
+    <div class='merch-stat'>
+        <table ng-repeat="game in $ctrl.games | filter:{ MerchantID:name.id }  | searchName:query ">
+            <tr>
+                <td>Name:</td>
+                <td>{{game.Name.en}}</td>
+            </tr>
+            <tr>
+                <td>id:</td>
+                <td>{{game.ID}}</td>
+            </tr>
+            <tr>
+                <td>URL:</td>
+                <td>{{game.Url}}</td>
+            </tr>
+            <tr>
+                <td>Mobile URL:</td>
+                <td>{{game.MobileUrl}}</td>
+            </tr>
+            <tr>
+                <td>Branded:</td>
+                <td>{{game.Branded?'yes':'no'}}</td>
+            </tr>
+            <tr>
+                <td>Super branded:</td>
+                <td>{{game.SuperBranded?'yes':'no'}}</td>
+            </tr>
+            <tr>
+                <td>Has demo:</td>
+                <td>{{game.hasDemo?'yes':'no'}}</td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>{{$ctrl.viewCategoryName(game.CategoryID)}}</td>
+            </tr>
+        </table>
+    </div>
 </div>

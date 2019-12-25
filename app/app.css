@@ -1,25 +1,18 @@
 * {box-sizing: border-box;}
 
 body {
-  margin: 5px;
   font-family: 'Muli', sans-serif;
-}
-
-.game-card {
-  border: solid 1px black;
-  padding: 5px;
-}
-
-img {
-  width: 50px
-}
-
-ol p {
-  height: 20px
 }
 
 .categories {
   display: block;
+}
+
+.fixed {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  background-color: white;
 }
 
 .active {
@@ -45,7 +38,7 @@ ol p {
   align-items: center;
   font-size: 24px;
   flex-direction: column;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .form-group {
@@ -56,7 +49,7 @@ ol p {
 input {
   margin: 10px 0px;
   display: inline-block;
-  width: 80%;
+  width: 50%;
   border-radius: 5px;
   border: solid 1px gray;
   text-align: center;
@@ -65,8 +58,14 @@ input {
 .search {
   position: relative;
   color: green;
-  top: 15px;
-  left: 20px;
+  top: 20px;
+  left: 25px;
+}
+
+.games-on-page button {
+  height: 30px;
+  border: solid 1px gray;
+  border-radius: 5px;
 }
 
 
@@ -89,22 +88,49 @@ button {
 
 .merch-list {
   padding: 10px;
+  display: flex;
+  justify-content: flex-start;
 }
 
-.games-list-wrap {
+.page-btn, .sort {
+  width: 70%;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.sort {
+  margin: 20px auto;
+}
+
+.stats {
+  color: gray;
+  font-size: 10px;
+}
+
+.stats span {
+  margin: 0 20px;
+}
+
+.games-list-wrap, .categories, .nothing, .stats, .merch-list {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: flex-end;
-  
+  justify-content: center;
+  width: 80%;
+  margin: 0px auto;
+}
+
+.games-list-wrap {
+  padding-top: 332px;
 }
 
 .game-wrap {
   width: 200px;
-  margin: 0 auto;
+  margin: 0 0 0 10px;
   padding: 0 0 20px;
   text-align: center;
-  font-size: 14px; 
+  font-size: 14px;
+  min-height: 196px; 
 }
 .game-item {
   position: relative;
@@ -112,6 +138,7 @@ button {
 .game-wrap img {
   display: block;
   width: 100%;
+  min-height: 150px;
 }
 .game-buttons {
   position: absolute;
@@ -187,4 +214,71 @@ button {
   margin-right: 10px;
 }
 
+table {
+  font-size: 12px;
+  width: 300px;
+  height: auto;
+  border-collapse: collapse;
+  margin: 5px;
+}
 
+td {
+  padding: 5px;
+  padding-right: 10px;
+  border: 1px solid black;
+}
+
+td:nth-child(2n+1) {
+  width: 20%;
+  background-color: whitesmoke;
+  font-weight: bold;
+}
+
+.merch-stat {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 815px) and (max-width: 1358px) {
+  .games-list-wrap {
+    justify-content: flex-start;
+    padding-left: 1%;
+  }
+}
+
+@media (min-width: 1600px) {
+  .games-list-wrap {
+    justify-content: flex-start;
+    padding-left: 5%;
+  }
+}
+
+@media (min-width: 319px) {
+  .games-list-wrap {
+    padding-top: 296px;
+  }
+}
+
+@media (min-width: 336px) {
+  .games-list-wrap {
+    padding-top: 260px;
+  }
+}
+
+@media (min-width: 462px) {
+  .games-list-wrap {
+    padding-top: 224px;
+  }
+}
+
+@media (min-width: 850px) {
+  .games-list-wrap {
+    padding-top: 188px;
+  }
+}
+
+
+
+
+ 
