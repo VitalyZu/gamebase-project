@@ -1,6 +1,12 @@
 <div ng-hide='$ctrl.hideFavLimitAlert' class='fav-alert' ng-click='$ctrl.hideFavAlert()'>
-    <p>Only 5 games can be added to favorites</p>
+    <p>Only 5 games can</p> 
+    <p>be added to favorites.</p>
     <p>click to continue</p>
+</div>
+
+<div ng-hide='$ctrl.isLoaded' class='fav-alert'>
+    <p>Loading...</p>
+    <img src="../loading.gif" alt="load">
 </div>
 
 

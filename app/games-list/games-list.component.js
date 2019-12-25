@@ -15,11 +15,12 @@ angular.module('gamesList')
       this.hideFavLimitAlert = true
       this.hideEmptyMess = true
       this.hideMerch = true
-      this.inputDefaultValue = '12'
+      this.isLoaded = false
       console.log($scope) //Scope {$id: 2, ....,  _: ƒ ()
       $http.get('http://127.0.0.1:8887/data.json')
         .then(response => {
           self.data = response.data
+          this.isLoaded = true
           this.games = this.data.games
           this.categories = this.data.categories
           this.merchants = _.values(this.data.merchants)
