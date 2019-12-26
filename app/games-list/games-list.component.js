@@ -49,6 +49,7 @@ angular.module('gamesList')
         this.page = 1
         this.category === -2 ? $scope.query = '' : ''
         this.category = +id
+        this.switch = ($scope.query.length>0)
         if (this.category === -1) { // === Favorite Games
           $scope.query = ''
           this.locStor.length > 0 ? this.hideEmptyMess = true : this.hideEmptyMess = false
