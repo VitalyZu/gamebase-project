@@ -50,6 +50,7 @@ angular.module('gamesList')
         this.category === -2 ? $scope.query = '' : ''
         this.category = +id
         if (this.category === -1) { // === Favorite Games
+          $scope.query = ''
           this.locStor.length > 0 ? this.hideEmptyMess = true : this.hideEmptyMess = false
           this.hideMainList = true
           this.hideStats = true
@@ -71,6 +72,7 @@ angular.module('gamesList')
       }
       this.viewMerchList = function () {
         $scope.query = ''
+        this.switch = false
         this.category = -2
         this.hideMerch = false
         this.hideEmptyMess = true
