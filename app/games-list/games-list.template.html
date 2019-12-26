@@ -1,10 +1,10 @@
 <div ng-hide='$ctrl.hideFavLimitAlert' class='fav-alert' ng-click='$ctrl.hideFavAlert()'>
-    <p>Only 5 games can</p> 
+    <p>Only 5 games can</p>
     <p>be added to favorites.</p>
     <p>click to continue</p>
 </div>
 
-<div ng-hide='$ctrl.isLoaded' class='fav-alert'>
+<div ng-hide='$ctrl.isLoaded' class='loading'>
     <p>Loading...</p>
     <img src="../loading.gif" alt="load">
 </div>
@@ -28,14 +28,17 @@
 
     <div class="form-group">
         <div class='sort' ng-init="selectedSort = 'name'">
-            <button ng-class="{'active':selectedSort === 'name'}" ng-click='$ctrl.changeOrder($event);selectedSort = "name"'
-                id='sbn'><i class="fas fa-sort-alpha-up"></i> Sort by Name</button>
+            <button ng-class="{'active':selectedSort === 'name'}"
+                ng-click='$ctrl.changeOrder($event);selectedSort = "name"' id='sbn'><i class="fas fa-sort-alpha-up"></i>
+                Sort by Name</button>
             <button ng-class="{'active':selectedSort === 'id'}" ng-click='$ctrl.changeOrder($event);selectedSort = "id"'
                 id='sbi'><i class="fas fa-sort-numeric-up"></i> Sort by ID</button>
             <button ng-init='rev = $ctrl.reverse' ng-class="{'active' : rev === '-'}"
-                ng-click='$ctrl.changeReverse($event);rev=$ctrl.reverse' id='rvsbtn'><i class="fas fa-sort"></i></button>
+                ng-click='$ctrl.changeReverse($event);rev=$ctrl.reverse' id='rvsbtn'><i
+                    class="fas fa-sort"></i></button>
         </div>
-        <input ng-model='query' type="text" placeholder="search..."><i class="fas fa-search search"></i>
+        <input ng-change='$ctrl.handleInput(query)' ng-model='query' type="text" placeholder="search..."><i
+            class="fas fa-search search"></i>
         <div class='games-on-page' ng-init="selectedGPP = '50'">
             <button ng-class="{'active':selectedGPP === '50'}"
                 ng-click='$ctrl.changeGamesPerPage($event);selectedGPP = "50"'>50</button>
@@ -44,8 +47,11 @@
         </div>
     </div>
     <div ng-hide="$ctrl.hideMainList" class='stats'>
-        <span class='stat-fav'>You have {{ $ctrl.locStor.length}} favorite games.</span>
-        <span class='stat-cat'> In category {{($ctrl.games | category:$ctrl.category).length}} games</span>
+        <span>You have <span class="red">{{ $ctrl.locStor.length}}</span> favorite games.</span>
+        <span ng-hide='$ctrl.switch'> In category <span
+                class="red">{{($ctrl.games | category:$ctrl.category).length}}</span> games</span>
+        <span ng-hide='!$ctrl.switch'>Search results: <span
+                class='red'>{{($ctrl.games | category:$ctrl.category | searchName:query).length}}</span> games</span>
     </div>
 </div>
 <div class='games-list-wrap'>

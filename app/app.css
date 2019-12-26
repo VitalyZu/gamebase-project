@@ -37,7 +37,7 @@ body {
   margin: 10px;
 }
 
-.fav-alert {
+.fav-alert, .loading {
   color: green;
   position: fixed;
   top: 0%;
@@ -51,6 +51,10 @@ body {
   font-size: 24px;
   flex-direction: column;
   z-index: 9999;
+}
+
+.loading {
+  background-color: white;
 }
 
 .sort {
@@ -123,6 +127,12 @@ button {
 
 .stats span {
   margin: 0 20px;
+}
+
+.red {
+  color: #ff7878;
+  margin: 0 !important;
+  font-weight: bold;
 }
 
 .games-list-wrap, .categories, .nothing, .stats, .merch-list {

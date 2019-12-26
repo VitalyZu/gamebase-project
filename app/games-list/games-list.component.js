@@ -16,6 +16,7 @@ angular.module('gamesList')
       this.hideEmptyMess = true
       this.hideMerch = true
       this.isLoaded = false
+      this.switch = false
       console.log($scope) //Scope {$id: 2, ....,  _: ƒ ()
       $http.get('http://127.0.0.1:8887/data.json')
         .then(response => {
@@ -79,6 +80,9 @@ angular.module('gamesList')
 
         })
         return str.join(', ')
+      }
+      this.handleInput = function (el) {
+        el.length > 0 ? this.switch = true : this.switch = false
       }
     }]
   })
