@@ -17,6 +17,7 @@ angular.module('gamesList')
       this.hideMerch = true
       this.isLoaded = false
       this.switch = false
+      this.hideStats = false
       console.log($scope) //Scope {$id: 2, ....,  _: ƒ ()
       $http.get('http://127.0.0.1:8887/data.json')
         .then(response => {
@@ -51,10 +52,12 @@ angular.module('gamesList')
         if (this.category === -1) { // === Favorite Games
           this.locStor.length > 0 ? this.hideEmptyMess = true : this.hideEmptyMess = false
           this.hideMainList = true
+          this.hideStats = true
         }
         else {
           this.hideEmptyMess = true
           this.hideMainList = false
+          this.hideStats = false
         }
       }
       this.addFavorite = function (id, game) {
@@ -71,6 +74,8 @@ angular.module('gamesList')
         this.category = -2
         this.hideMerch = false
         this.hideEmptyMess = true
+        this.hideStats = false
+        this.hideMainList = true
       }
       this.viewCategoryName = function (a) {
         that = this
@@ -83,6 +88,7 @@ angular.module('gamesList')
       }
       this.handleInput = function (el) {
         el.length > 0 ? this.switch = true : this.switch = false
+        this.page = 1
       }
     }]
   })

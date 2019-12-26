@@ -2,10 +2,11 @@
     <p>Only 5 games can</p>
     <p>be added to favorites.</p>
     <p>click to continue</p>
+    <i class="fas fa-mouse-pointer"></i>
 </div>
 
 <div ng-hide='$ctrl.isLoaded' class='loading'>
-    <p>Loading...</p>
+    <p><span class="bold">Loading...</span></p>
     <img src="../loading.gif" alt="load">
 </div>
 
@@ -46,12 +47,23 @@
                 ng-click='$ctrl.changeGamesPerPage($event);selectedGPP = "100"'>100</button>
         </div>
     </div>
-    <div ng-hide="$ctrl.hideMainList" class='stats'>
+    <div ng-hide="$ctrl.hideStats" class='stats'>
         <span>You have <span class="red">{{ $ctrl.locStor.length}}</span> favorite games.</span>
-        <span ng-hide='$ctrl.switch'> In category <span
-                class="red">{{($ctrl.games | category:$ctrl.category).length}}</span> games</span>
-        <span ng-hide='!$ctrl.switch'>Search results: <span
-                class='red'>{{($ctrl.games | category:$ctrl.category | searchName:query).length}}</span> games</span>
+        <span ng-hide='$ctrl.hideMainList'>
+            <span ng-hide='$ctrl.switch'> In category <span
+                    class="red">{{($ctrl.games | category:$ctrl.category).length}}</span> games</span>
+            <span ng-hide='!$ctrl.switch'>Search results: <span
+                    class='red'>{{($ctrl.games | category:$ctrl.category | searchName:query).length}}</span>
+                games</span>
+        </span>
+
+        <span ng-hide='$ctrl.hideMerch'>
+            <span ng-hide='$ctrl.switch'> In merch <span
+                    class="red">{{($ctrl.games | filter:{ MerchantID:name.id }).length}}</span> games</span>
+            <span ng-hide='!$ctrl.switch'>Search results: <span
+                    class='red'>{{($ctrl.games | filter:{ MerchantID:name.id } | searchName:query).length}}</span>
+                games</span>
+        </span>
     </div>
 </div>
 <div class='games-list-wrap'>
@@ -99,7 +111,7 @@
         <table ng-repeat="game in $ctrl.games | filter:{ MerchantID:name.id }  | searchName:query ">
             <tr>
                 <td>Name:</td>
-                <td>{{game.Name.en}}</td>
+                <td><span class='bold'>{{game.Name.en}}</span></td>
             </tr>
             <tr>
                 <td>id:</td>
@@ -107,11 +119,11 @@
             </tr>
             <tr>
                 <td>URL:</td>
-                <td>{{game.Url}}</td>
+                <td><span class='url'>{{game.Url}}</span></td>
             </tr>
             <tr>
                 <td>Mobile URL:</td>
-                <td>{{game.MobileUrl}}</td>
+                <td><span class='url'>{{game.MobileUrl}}<span></td>
             </tr>
             <tr>
                 <td>Branded:</td>
