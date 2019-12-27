@@ -230,18 +230,13 @@ input {
   justify-content: flex-start;
 }
 
-.merch-stat {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 table {
   font-size: 12px;
-  width: 300px;
+  width: 270px;
   height: auto;
   border-collapse: collapse;
   margin: 5px;
+  word-break: break-all;
 }
 
 td {
@@ -254,6 +249,12 @@ td:nth-child(2n+1) {
   width: 20%;
   background-color: whitesmoke;
   font-weight: bold;
+}
+
+.merch-stat {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .topbutton {
